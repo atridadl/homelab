@@ -1,0 +1,19 @@
+services:
+  mc:
+    image: itzg/minecraft-server
+    container_name: paper
+    environment:
+      EULA: "true"
+      TYPE: $TYPE
+      VIEW_DISTANCE: 10
+      MEMORY: $MEMORY
+      MOTD: $MOTD                                  
+      SERVER_NAME: $SERVER_NAME 
+      OPS: $OPS            
+      SEED: "6256181764111482250"
+      PORT: $PORT
+    ports:
+      - "${PORT}:25565"
+    volumes:
+      - ${VOLUME}/volumes/himbomc:/data
+    restart: unless-stopped
