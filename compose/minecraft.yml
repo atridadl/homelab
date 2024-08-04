@@ -1,7 +1,6 @@
 services:
-  mc:
+  server:
     image: itzg/minecraft-server
-    container_name: paper
     environment:
       EULA: "true"
       TYPE: $TYPE
@@ -15,5 +14,5 @@ services:
     ports:
       - "${PORT}:25565"
     volumes:
-      - ${VOLUME}/volumes/himbomc:/data
+      - ${VOLUME}:/data
     restart: unless-stopped
