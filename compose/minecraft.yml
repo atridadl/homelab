@@ -11,6 +11,7 @@ services:
       OPS: $OPS            
       SEED: "6256181764111482250"
       PORT: $PORT
+      SPAWN_PROTECTION: $SPAWN_PROTECTION
     ports:
       - "${PORT}:25565"
     volumes:
