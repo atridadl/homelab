@@ -1,10 +1,7 @@
 version: "3.7"
 
-name: immich
-
 services:
   immich-server:
-    container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
     volumes:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
@@ -19,8 +16,6 @@ services:
     restart: always
 
   immich-machine-learning:
-    container_name: immich_machine_learning
-
     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
     volumes:
       - model-cache:/cache
@@ -29,14 +24,12 @@ services:
     restart: always
 
   redis:
-    container_name: immich_redis
     image: docker.io/redis:6.2-alpine@sha256:e3b17ba9479deec4b7d1eeec1548a253acc5374d68d3b27937fcfe4df8d18c7e
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
 
   database:
-    container_name: immich_postgres
     image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
