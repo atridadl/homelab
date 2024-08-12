@@ -30,6 +30,7 @@ services:
       FORGEJO__repository__ENABLE_PUSH_CREATE_USER: "true"
       FORGEJO__repository__DEFAULT_PUSH_CREATE_PRIVATE: "false"
       FORGEJO__repository__DEFAULT_REPO_UNITS: "repo.code,repo.actions"
+      FORGEJO__server__ROOT_URL: $ROOT_URL
       SHARED_SECRET: $SHARED_SECRET
       ROOT_PASSWORD: $ROOT_PASSWORD
     volumes:
