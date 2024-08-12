@@ -1,3 +1,13 @@
+# SAMPLE ENV
+# TYPE=PAPER
+# MEMORY=2G
+# MOTD="Awesome Christian Minecraft Server"
+# SERVER_NAME="ChristianMC"
+# OPS="SuperCoolOP"
+# PORT=25565
+# SPAWN_PROTECTION=0
+# VOLUME=/mnt/nvme/chtistianmc
+
 version: '3'
 
 services:

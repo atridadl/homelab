@@ -1,3 +1,8 @@
+# SAMPLE ENV
+# SHARED_SECRET=super-secret-string
+# ROOT_PASSWORD=super-secret-password
+# ROOT_URL=https://git.cool.website
+
 version: '3'
 
 volumes:
