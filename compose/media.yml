@@ -1,9 +1,22 @@
 # SAMPLE ENV
 # ROOT_PATH=/mnt/plex
 
-version: '3'
+version: "3"
 
 services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ${ROOT_PATH}/config:/config
+      - ${ROOT_PATH}/data/media:/media
+    ports:
+      - 8096:8096
+    restart: unless-stopped
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
@@ -67,4 +80,3 @@ services:
     volumes:
       - ${ROOT_PATH}/config:/config
       - ${ROOT_PATH}/data:/data
-
