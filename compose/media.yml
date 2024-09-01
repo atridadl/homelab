@@ -7,6 +7,7 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
+    pull_policy: always
     environment:
       - PUID=1000
       - PGID=1000
@@ -21,6 +22,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
+    pull_policy: always
     restart: always
     ports:
       - "8989:7878/tcp"
@@ -34,6 +36,7 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radar
+    pull_policy: always
     restart: always
     ports:
       - "7878:7878/tcp"
@@ -47,6 +50,7 @@ services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
+    pull_policy: always
     restart: always
     ports:
       - "8080:8080/tcp"
