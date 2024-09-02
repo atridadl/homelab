@@ -22,7 +22,6 @@ services:
     image: code.forgejo.org/forgejo/runner:3.4.1
     links:
       - docker-in-docker
-      - forgejo
     environment:
       DOCKER_HOST: tcp://docker-in-docker:2376
       SHARED_SECRET: $SHARED_SECRET
@@ -48,7 +47,6 @@ services:
     image: code.forgejo.org/forgejo/runner:3.4.1
     links:
       - docker-in-docker
-      - forgejo
     environment:
       DOCKER_HOST: tcp://docker:2376
       DOCKER_CERT_PATH: /certs/client
