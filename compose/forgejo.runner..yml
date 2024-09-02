@@ -1,9 +1,8 @@
 # SAMPLE ENV
 # SHARED_SECRET=super-secret-string
 # ROOT_PASSWORD=super-secret-password
-# ROOT_URL=https://git.cool.website
 
-version: '3'
+version: "3"
 
 volumes:
   docker_certs:
@@ -12,36 +11,12 @@ services:
   docker-in-docker:
     image: docker:dind
     hostname: docker
-    privileged: true  
+    privileged: true
     environment:
       DOCKER_TLS_CERTDIR: /certs
       DOCKER_HOST: docker-in-docker
     volumes:
       - docker_certs:/certs
-
-  forgejo:
-    image: codeberg.org/forgejo/forgejo:1.21
-    command: >-
-      bash -c '
-      /bin/s6-svscan /etc/s6 &
-      sleep 10 ;
-      su -c "forgejo forgejo-cli actions register --secret ${SHARED_SECRET}" git ;
-      su -c "forgejo admin user create --admin --username root --password ${ROOT_PASSWORD} --email root@example.com" git ;
-      sleep infinity
-      '      
-    environment:
-      FORGEJO__security__INSTALL_LOCK: "true"
-      FORGEJO__log__LEVEL: "debug"
-      FORGEJO__repository__ENABLE_PUSH_CREATE_USER: "true"
-      FORGEJO__repository__DEFAULT_PUSH_CREATE_PRIVATE: "false"
-      FORGEJO__repository__DEFAULT_REPO_UNITS: "repo.code,repo.actions"
-      FORGEJO__server__ROOT_URL: $ROOT_URL
-      SHARED_SECRET: $SHARED_SECRET
-      ROOT_PASSWORD: $ROOT_PASSWORD
-    volumes:
-      - /srv/forgejo-data:/data
-    ports:
-      - 8090:3000
 
   runner-register:
     image: code.forgejo.org/forgejo/runner:3.4.1
@@ -57,7 +32,7 @@ services:
     command: >-
       bash -ec '
       while : ; do
-        forgejo-runner create-runner-file --connect --instance http://forgejo:3000 --name runner --secret ${SHARED_SECRET} && break ;
+        forgejo-runner create-runner-file --connect --instance http://codeberg.org --name runner --secret ${SHARED_SECRET} && break ;
         sleep 1 ;
       done ;
       sed -i -e "s|\"labels\": null|\"labels\": [\"docker:docker://node:20-bookworm\", \"ubuntu-22.04:docker://catthehacker/ubuntu:act-22.04\"]|" .runner ;
@@ -67,7 +42,7 @@ services:
       sed -i -e "s|^  options:|  options: -v /certs/client:/certs/client|" config.yml ;
       sed -i -e "s|  valid_volumes: \[\]$$|  valid_volumes:\n    - /certs/client|" config.yml ;
       chown -R 1000:1000 /data
-      '      
+      '
 
   runner-daemon:
     image: code.forgejo.org/forgejo/runner:3.4.1
