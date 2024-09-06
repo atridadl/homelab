@@ -2,11 +2,8 @@
 
 services:
   kuma:
-    image: louislam/uptime-kuma:1
-    volumes:
-      #- ./data:/app/data
-      - ../server:/app/server
-      - ../db:/app/db
+    image: 'louislam/uptime-kuma:1'
     ports:
-      - "3069:3001"
-      - "3307:3306"
+      - '17958:3001'
+    volumes:
+      - './uptimekuma_data:/app/data'
