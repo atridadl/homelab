@@ -2,8 +2,6 @@
 # SHARED_SECRET=super-secret-string
 # ROOT_PASSWORD=super-secret-password
 
-version: "3"
-
 volumes:
   docker_certs:
 

@@ -8,8 +8,6 @@
 # SPAWN_PROTECTION=0
 # VOLUME=/mnt/nvme/chtistianmc
 
-version: '3'
-
 services:
   server:
     image: itzg/minecraft-server:latest

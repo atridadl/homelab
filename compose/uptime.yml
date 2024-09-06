@@ -1,0 +1,12 @@
+# SAMPLE ENV
+
+services:
+  kuma:
+    image: louislam/uptime-kuma:1
+    volumes:
+      #- ./data:/app/data
+      - ../server:/app/server
+      - ../db:/app/db
+    ports:
+      - "3069:3001"
+      - "3307:3306"

@@ -1,8 +1,6 @@
 # SAMPLE ENV
 # ROOT_PATH=/mnt/plex
 
-version: "3"
-
 services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
