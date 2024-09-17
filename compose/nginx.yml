@@ -1,12 +1,17 @@
 services:
   app:
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: "jc21/nginx-proxy-manager:latest"
     restart: unless-stopped
     ports:
-      - '80:80' # Public HTTP Port
-      - '443:443' # Public HTTPS Port
-      - '81:81' # Admin Web Port
-      - '25565-25569:25565-25569' #Minecraft Ports
+      - "80:80" # Public HTTP Port
+      - "443:443" # Public HTTPS Port
+      - "81:81" # Admin Web Port
+      - "25565-25569:25565-25569" #Minecraft Ports
+    networks:
+      - proxy
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+
+networks:
+  proxy:

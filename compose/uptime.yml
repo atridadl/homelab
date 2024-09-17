@@ -2,8 +2,15 @@
 
 services:
   kuma:
-    image: 'louislam/uptime-kuma:1'
+    image: "louislam/uptime-kuma:1"
     ports:
-      - '17958:3001'
+      - "17958:3001"
+    networks:
+      - proxy
     volumes:
-      - './uptimekuma_data:/app/data'
+      - "./uptimekuma_data:/app/data"
+
+networks:
+  proxy:
+    name: proxy
+    external: true
