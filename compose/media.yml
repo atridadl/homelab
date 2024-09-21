@@ -17,6 +17,19 @@ services:
       - 8096:8096
     restart: unless-stopped
 
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Etc/UTC
+      - PORT=5055
+    ports:
+      - 5055:5055
+    volumes:
+      - ${ROOT_PATH}/config:/app/config
+    restart: unless-stopped
+
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
