@@ -15,8 +15,6 @@ services:
       - ${ROOT_PATH}/data/media:/media
     ports:
       - 8096:8096
-    networks:
-      - proxy
     restart: unless-stopped
 
   sonarr:
@@ -60,8 +58,3 @@ services:
     volumes:
       - ${ROOT_PATH}/config:/config
       - ${ROOT_PATH}/data:/data
-
-networks:
-  proxy_default:
-    name: proxy
-    external: true
