@@ -11,7 +11,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - ${ROOT_PATH}/config:/config/jellyfin
+      - ${ROOT_PATH}/config/jellyfin:/config
       - ${ROOT_PATH}/data/media:/media
     ports:
       - 8096:8096
@@ -27,7 +27,7 @@ services:
     ports:
       - 5055:5055
     volumes:
-      - ${ROOT_PATH}/config:/app/config/jellyseerr
+      - ${ROOT_PATH}/config/jellyseerr:/app/config
     restart: unless-stopped
 
   sonarr:
@@ -41,7 +41,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ${ROOT_PATH}/config:/config/sonarr
+      - ${ROOT_PATH}/config/sonarr:/config
       - ${ROOT_PATH}/data:/data
 
   radarr:
@@ -55,7 +55,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ${ROOT_PATH}/config:/config/radarr
+      - ${ROOT_PATH}/config/radarr:/config
       - ${ROOT_PATH}/data:/data
 
   sabnzbd:
@@ -69,5 +69,5 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ${ROOT_PATH}/config:/config/sabnzbd
+      - ${ROOT_PATH}/config/sabnzbd:/config
       - ${ROOT_PATH}/data:/data
