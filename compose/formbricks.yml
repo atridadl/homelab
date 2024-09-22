@@ -1,0 +1,75 @@
+version: "3.3"
+x-environment: &environment
+  environment:
+    WEBAPP_URL: ${WEBAPP_URL}
+    NEXTAUTH_URL: ${WEBAPP_URL}
+
+    # PostgreSQL DB for Formbricks to connect to
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/formbricks?schema=public"
+
+    # NextJS Auth
+    # @see: https://next-auth.js.org/configuration/options#nextauth_secret
+    # You can use: `openssl rand -hex 32` to generate one
+    NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+
+    # Encryption Key is used for 2FA & Single use URLs for Link Surveys
+    # You can use: $(openssl rand -hex 32) to generate one
+    ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
+    # API Secret for running cron jobs.
+    # You can use: $(openssl rand -hex 32) to generate a secure one
+    CRON_SECRET: ${CRON_SECRET}
+
+    # Email Configuration
+    MAIL_FROM: ${MAIL_FROM}
+    SMTP_HOST: ${SMTP_HOST}
+    SMTP_PORT: ${SMTP_PORT}
+    SMTP_USER: ${SMTP_USER}
+    SMTP_PASSWORD: ${SMTP_PASSWORD}
+
+    SMTP_SECURE_ENABLED: 1
+
+    # Set the below to 0 to enable Email Verification for new signups (will required Email Configuration)
+    EMAIL_VERIFICATION_DISABLED: 1
+
+    # Set the below to 0 to enable Password Reset (will required Email Configuration)
+    PASSWORD_RESET_DISABLED: 1
+
+services:
+  postgres:
+    restart: always
+    image: postgres:15-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      # Postgres DB Super User Password
+      # Replace the below with your own secure password & Make sure the password matches the password field in DATABASE_URL above
+      - POSTGRES_PASSWORD=postgres
+
+  formbricks:
+    restart: always
+    image: ghcr.io/formbricks/formbricks:latest
+    depends_on:
+      - postgres
+    ports:
+      - 3333:3000
+    volumes:
+      - uploads:/home/nextjs/apps/web/uploads/
+    <<: *environment
+
+volumes:
+  postgres:
+    driver: local
+  uploads:
+# Example dotend env
+# WEBAPP_URL=https://formbricks.example.com
+# NEXTAUTH_URL=https://formbricks.example.com
+# DATABASE_URL=postgresql://postgres:postgres@postgres:5432/formbricks?schema=public
+# NEXTAUTH_SECRET=secret
+# ENCRYPTION_KEY=secret
+# CRON_SECRET=secret
+# MAIL_FROM=noreply@example.com
+# SMTP_HOST=smtp.example.com
+# SMTP_PORT=587
+# SMTP_USER=user@example.com
+# SMTP_PASSWORD=password
