@@ -17,8 +17,12 @@ services:
     stop_signal: SIGKILL
     ports:
       - "3000:3000"
+      - "2222:2222"
     environment:
-      FORGEJO__server__ROOT_URL: ${FORGEJO_ROOT_URL}
+      FORGEJO__server__ROOT_URL: https://${FORGEJO_ROOT_URL}
+      FORGEJO__server__START_SSH_SERVER: true
+      FORGEJO__server__SSH_PORT: 2222
+      FORGEJO__server__SSH_DOMAIN: ${FORGEJO_ROOT_URL}
       FORGEJO__database__DB_TYPE: postgres
       FORGEJO__database__HOST: postgres:5432
       FORGEJO__database__NAME: ${DB_NAME}
@@ -36,10 +40,10 @@ services:
       - "8008:8000"
     environment:
       WOODPECKER_OPEN: "true"
-      WOODPECKER_HOST: ${WOODPECKER_ROOT_URL}
+      WOODPECKER_HOST: https://${WOODPECKER_ROOT_URL}
       WOODPECKER_AGENT_SECRET: ${WOODPECKER_AGENT_SECRET}
       WOODPECKER_FORGEJO: "true"
-      WOODPECKER_FORGEJO_URL: ${FORGEJO_ROOT_URL}
+      WOODPECKER_FORGEJO_URL: https://${FORGEJO_ROOT_URL}
       WOODPECKER_FORGEJO_CLIENT: ${WOODPECKER_FORGEJO_CLIENT}
       WOODPECKER_FORGEJO_SECRET: ${WOODPECKER_FORGEJO_SECRET}
 
